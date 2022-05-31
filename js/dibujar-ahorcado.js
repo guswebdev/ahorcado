@@ -1,4 +1,6 @@
 const d = document;
+const alertContainer = d.querySelector('.container-alert')
+const alertLose = d.querySelector('.alert-lose')
 
 export const dibujarAhorcado = (contador,pantalla,pincel) => {
   
@@ -67,6 +69,8 @@ export const dibujarAhorcado = (contador,pantalla,pincel) => {
     case 10:
       dibujarLinea(200, 300, 240, 350);
       console.log("FIN DEL JUEGO");
+      alertContainer.classList.remove('d-none');
+      alertLose.classList.remove('d-none');
       break;
   }
 
