@@ -48,7 +48,7 @@ const click = (e) => {
       /* --- VALIDAR SI EXISTE EN LA PALABRA --- */
       if (incluyeLetra(e.key, palabra)) {
         console.log("acertaste");
-        letraCorrecta(e.key);
+        letraCorrecta(e.key,palabra);
       } else {
         let contador = letraIncorrecta(e.key, letrasIncorrectas);
         dibujarAhorcado(contador,pantalla,pincel);
