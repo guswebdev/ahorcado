@@ -1,5 +1,5 @@
 const d = document;
-//const letrasIncorrectas = new Set()
+const letrasIncorrectas = new Set()
 
 export const letraIncorrecta = (letra,letrasIncorrectas) => {
     const lista = d.querySelector('.lista-palabra-2')

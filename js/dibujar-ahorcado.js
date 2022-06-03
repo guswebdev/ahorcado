@@ -6,7 +6,8 @@ export const dibujarAhorcado = (contador,pantalla,pincel) => {
   
 
   /* CANVA */
-  pincel.fillStyle = "#eff1fa";
+  //pincel.fillStyle = "#eff1fa";
+  pincel.fillStyle = "crimson";
   pincel.fillRect(0, 0, pantalla.width, pantalla.height);
 
   /* FUNCION DIBUJAR LINEA*/
