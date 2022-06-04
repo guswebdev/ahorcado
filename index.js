@@ -22,6 +22,7 @@ const $listaPalabrasIncorrectas = d.querySelector(".lista-palabra-2");
 const $alertContainer = d.querySelector(".container-alert");
 const $alertWin = d.querySelector(".alert-win");
 const $alertLose = d.querySelector(".alert-lose");
+
 let palabraSecreta = "";
 let control = false;
 let intentos;
@@ -163,9 +164,6 @@ function dibujarAhorcado(intentos) {
 
     case 10:
       dibujarLinea(200, 300, 240, 350);
-
-      //alertContainer.classList.remove('d-none');
-      //alertLose.classList.remove('d-none');
       break;
   }
 }
@@ -197,6 +195,15 @@ function reset() {
   control = true;
 }
 
+function iniciarJuego() {
+  control = true;
+  dibujarTablero(pincel);
+  palabraSecreta = palabraAleatoria();
+  dibujarPalabra();
+  dibujarGuiones(palabraSecreta.length);
+  console.log(palabraSecreta);
+}
+
 /* EVENTOS */
 
 const eventoClick = (e) => {
@@ -204,21 +211,28 @@ const eventoClick = (e) => {
     e.preventDefault();
     $inicio.classList.add("d-none");
     $juego.classList.remove("d-none");
+    /*
     control = true;
     dibujarTablero(pincel);
     palabraSecreta = palabraAleatoria();
     dibujarPalabra();
     dibujarGuiones(palabraSecreta.length);
     console.log(palabraSecreta);
+    */
+    iniciarJuego();
   }
 
   if (e.target.matches(".resetear-juego")) {
     reset();
+    /*
+    control = true;
     dibujarTablero(pincel);
     palabraSecreta = palabraAleatoria();
     dibujarPalabra();
     dibujarGuiones(palabraSecreta.length);
     console.log(palabraSecreta);
+    */
+    iniciarJuego();
   }
 
   if (e.target.matches(".desistir")) {
@@ -226,6 +240,35 @@ const eventoClick = (e) => {
     $juego.classList.add("d-none");
     reset();
     control = false;
+  }
+
+  if (e.target.matches(".agregar-palabra")) {
+    e.preventDefault();
+    $inicio.classList.add("d-none");
+    $formulario.classList.remove("d-none");
+  }
+
+  if (e.target.matches(".cancelar")) {
+    e.preventDefault();
+    $formulario.classList.add("d-none");
+    $inicio.classList.remove("d-none");
+  }
+
+  if (e.target.matches(".guardar")) {
+    e.preventDefault();
+    $formulario.classList.add("d-none");
+    $juego.classList.remove("d-none");
+    //Esto deberia aplicar LocalStorage
+    const nuevaPalabra = d.querySelector(".textarea").value;
+    palabras.push(nuevaPalabra);
+    /*
+    control = true;
+    dibujarTablero(pincel);
+    palabraSecreta = palabraAleatoria();
+    dibujarPalabra();
+    dibujarGuiones(palabraSecreta.length);
+    */
+    iniciarJuego();
   }
 };
 
