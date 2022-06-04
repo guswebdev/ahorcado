@@ -26,8 +26,8 @@ let palabraSecreta = "";
 let control = false;
 let intentos;
 let aciertos;
-const letrasCorrectas = [];
-const letrasIncorrectas = new Set();
+let letrasCorrectas = [];
+let letrasIncorrectas = new Set();
 
 function dibujarTablero(pincel) {
   const stylesCanva = getComputedStyle($canvas);
@@ -45,6 +45,8 @@ function palabraAleatoria() {
 }
 
 function dibujarGuiones(tamaño) {
+  $listaGuiones.textContent = "";
+
   for (let i = 0; i < tamaño; i++) {
     let $li = d.createElement("li");
     $li.classList.add("guiones");
@@ -63,6 +65,8 @@ function incluyeLetra(letra, palabra) {
 
 function dibujarPalabra() {
   let letras = palabraSecreta.split("");
+
+  $listaPalabras.textContent = "";
 
   letras.forEach((item) => {
     let $li = d.createElement("li");
@@ -171,6 +175,7 @@ function finDelJuego(intentos) {
     console.log("FIN DEL JUEGO");
     $alertContainer.classList.remove("d-none");
     $alertLose.classList.remove("d-none");
+    control = false;
   }
 }
 
@@ -183,7 +188,13 @@ function juegoGanado(aciertos) {
 }
 
 function reset() {
-  
+  $alertContainer.classList.add("d-none");
+  $alertWin.classList.add("d-none");
+  $alertLose.classList.add("d-none");
+  $listaPalabrasIncorrectas.textContent = "";
+  letrasCorrectas = [];
+  letrasIncorrectas.clear();
+  control = true;
 }
 
 /* EVENTOS */
@@ -199,6 +210,22 @@ const eventoClick = (e) => {
     dibujarPalabra();
     dibujarGuiones(palabraSecreta.length);
     console.log(palabraSecreta);
+  }
+
+  if (e.target.matches(".resetear-juego")) {
+    reset();
+    dibujarTablero(pincel);
+    palabraSecreta = palabraAleatoria();
+    dibujarPalabra();
+    dibujarGuiones(palabraSecreta.length);
+    console.log(palabraSecreta);
+  }
+
+  if (e.target.matches(".desistir")) {
+    $inicio.classList.remove("d-none");
+    $juego.classList.add("d-none");
+    reset();
+    control = false;
   }
 };
 
