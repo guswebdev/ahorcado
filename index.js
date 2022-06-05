@@ -48,12 +48,12 @@ function dibujarGuiones(tamaño) {
 }
 
 function esLetra(letra) {
-  let regExp = /^[a-zñÑ]+$/;
-  return regExp.test(letra);
+  let regExp = /^[a-zA-ZñÑ]+$/;
+  return regExp.test(letra.toUpperCase());
 }
 
 function incluyeLetra(letra, palabra) {
-  return palabra.includes(letra);
+  return palabra.includes(letra.toUpperCase());
 }
 
 function dibujarPalabra() {
@@ -162,7 +162,6 @@ function dibujarAhorcado(intentos) {
 
 function finDelJuego(intentos) {
   if (intentos === 10) {
-    console.log("FIN DEL JUEGO");
     $alertContainer.classList.remove("d-none");
     $alertLose.classList.remove("d-none");
     control = false;
@@ -171,7 +170,6 @@ function finDelJuego(intentos) {
 
 function juegoGanado(aciertos) {
   if (aciertos === palabraSecreta.length) {
-    console.log("JUEGO GANADO");
     $alertContainer.classList.remove("d-none");
     $alertWin.classList.remove("d-none");
   }
@@ -201,16 +199,16 @@ function iniciarJuego() {
 const domContentLoaded = (e) => {
   if (ls.getItem("palabras") === null) {
     const palabras = [
-      "hola",
-      "como",
-      "estas",
-      "chau",
-      "estoy",
-      "haciendo",
-      "pruebas",
-      "con",
-      "palabras",
-      "random",
+      "HOLA",
+      "COMO",
+      "ESTAS",
+      "CHAU",
+      "ESTOY",
+      "HACIENDO",
+      "PRUEBAS",
+      "CON",
+      "PALABRAS",
+      "RANDOM",
     ];
     ls.setItem("palabras", JSON.stringify(palabras));
   }
@@ -258,7 +256,7 @@ const eventoClick = (e) => {
     const nuevaPalabra = d.querySelector(".textarea").value;
     let palabras = ls.getItem("palabras");
     palabras = JSON.parse(palabras);
-    palabras.push(nuevaPalabra);
+    palabras.push(nuevaPalabra.toUpperCase());
     ls.setItem("palabras", JSON.stringify(palabras));
     iniciarJuego();
   }
@@ -269,10 +267,10 @@ d.addEventListener("click", eventoClick);
 const eventoKeypress = (e) => {
   if (control && esLetra(e.key)) {
     if (incluyeLetra(e.key, palabraSecreta)) {
-      aciertos = letraCorrecta(e.key);
+      aciertos = letraCorrecta(e.key.toUpperCase());
       juegoGanado(aciertos);
     } else {
-      intentos = letraIncorrecta(e.key);
+      intentos = letraIncorrecta(e.key.toUpperCase());
       dibujarAhorcado(intentos);
       finDelJuego(intentos);
     }
