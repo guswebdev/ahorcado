@@ -1,16 +1,6 @@
 const d = document;
-const palabras = [
-  "hola",
-  "como",
-  "estas",
-  "chau",
-  "estoy",
-  "haciendo",
-  "pruebas",
-  "con",
-  "palabras",
-  "random",
-];
+const ls = localStorage;
+
 const $inicio = d.querySelector(".inicio");
 const $juego = d.querySelector(".juego");
 const $formulario = d.querySelector(".formulario");
@@ -42,6 +32,8 @@ function dibujarTablero(pincel) {
 }
 
 function palabraAleatoria() {
+  let palabras = ls.getItem("palabras");
+  palabras = JSON.parse(palabras);
   return palabras[Math.floor(Math.random() * palabras.length)];
 }
 
@@ -206,32 +198,36 @@ function iniciarJuego() {
 
 /* EVENTOS */
 
+const domContentLoaded = (e) => {
+  if (ls.getItem("palabras") === null) {
+    const palabras = [
+      "hola",
+      "como",
+      "estas",
+      "chau",
+      "estoy",
+      "haciendo",
+      "pruebas",
+      "con",
+      "palabras",
+      "random",
+    ];
+    ls.setItem("palabras", JSON.stringify(palabras));
+  }
+};
+
+d.addEventListener("DOMContentLoaded", domContentLoaded);
+
 const eventoClick = (e) => {
   if (e.target.matches(".juego-nuevo")) {
     e.preventDefault();
     $inicio.classList.add("d-none");
     $juego.classList.remove("d-none");
-    /*
-    control = true;
-    dibujarTablero(pincel);
-    palabraSecreta = palabraAleatoria();
-    dibujarPalabra();
-    dibujarGuiones(palabraSecreta.length);
-    console.log(palabraSecreta);
-    */
     iniciarJuego();
   }
 
   if (e.target.matches(".resetear-juego")) {
     reset();
-    /*
-    control = true;
-    dibujarTablero(pincel);
-    palabraSecreta = palabraAleatoria();
-    dibujarPalabra();
-    dibujarGuiones(palabraSecreta.length);
-    console.log(palabraSecreta);
-    */
     iniciarJuego();
   }
 
@@ -260,14 +256,10 @@ const eventoClick = (e) => {
     $juego.classList.remove("d-none");
     //Esto deberia aplicar LocalStorage
     const nuevaPalabra = d.querySelector(".textarea").value;
+    let palabras = ls.getItem("palabras");
+    palabras = JSON.parse(palabras);
     palabras.push(nuevaPalabra);
-    /*
-    control = true;
-    dibujarTablero(pincel);
-    palabraSecreta = palabraAleatoria();
-    dibujarPalabra();
-    dibujarGuiones(palabraSecreta.length);
-    */
+    ls.setItem("palabras", JSON.stringify(palabras));
     iniciarJuego();
   }
 };
