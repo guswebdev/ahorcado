@@ -26,8 +26,7 @@ function dibujarTablero(pincel) {
   const h = stylesCanva.height;
   $canvas.width = w.split("px")[0];
   $canvas.height = h.split("px")[0];
-  //pincel.fillStyle = "#eff1fa";
-  pincel.fillStyle = "crimson";
+  pincel.fillStyle = "#eff1fa";
   pincel.fillRect(0, 0, $canvas.width, $canvas.height);
 }
 
@@ -183,6 +182,7 @@ function reset() {
   letrasCorrectas = [];
   letrasIncorrectas.clear();
   control = true;
+  pincel.clearRect(0, 0, $canvas.width, $canvas.height);
 }
 
 function iniciarJuego() {
@@ -252,7 +252,6 @@ const eventoClick = (e) => {
     e.preventDefault();
     $formulario.classList.add("d-none");
     $juego.classList.remove("d-none");
-    //Esto deberia aplicar LocalStorage
     const nuevaPalabra = d.querySelector(".textarea").value;
     let palabras = ls.getItem("palabras");
     palabras = JSON.parse(palabras);
