@@ -12,3 +12,7 @@
 - No debe ser posible escribir números dentro del juego.
 - Las letras equivocadas deben aparecer en la pantalla, pero no pueden aparecer de forma repetida;
 - Las letras correctas deben aparecer en la pantalla encima de los guiones, en la posición correcta em relación a la palabra.
+
+*Sitio Web En Linea* : [Juego del Ahorcado](https://guswebdev.github.io/ahorcado/)
+
+*Linkedin* : [Gustavo Miño](https://www.linkedin.com/in/gustavo-dev-web/)
